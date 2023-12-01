@@ -1,6 +1,9 @@
-
+"""This script filters & cleans a raw data file into a list of dictionaries."""
 
 from datetime import datetime
+
+MIN_LINE_LEN = 40
+TIME_RANGE = 17
 
 # [TODO]: step 1
 # Update the is_log_line function below to skip lines that are not valid log lines.
@@ -9,14 +12,17 @@ from datetime import datetime
 # There's no perfect way to do this: just decide what you think is reasonable to get
 # the test to pass. The only thing you are not allowed to do is filter out log lines
 # based on the exact row numbers you want to remove.
+
 def is_log_line(line: str) -> bool|None:
     """Takes a log line and returns True if it is a valid log line and returns nothing
-    if it is not.
+    if it is not. Validates line based on length and presence of date in right format.
     """
-    if len(line) < 40:
+    if not isinstance(line, str):
+        raise TypeError("Line must be a string.")
+    if len(line) < MIN_LINE_LEN:
         return None
     try:
-        timestamp = line[:17]
+        timestamp = line[:TIME_RANGE]
         datetime.strptime(timestamp, "%d/%m/%y %H:%M:%S")
     except ValueError:
         return None
@@ -27,19 +33,26 @@ def is_log_line(line: str) -> bool|None:
 # dictionary with keys for "timestamp", "log_level", and "message". The valid log
 # levels are `INFO`, `TRACE`, and `WARNING`. See lines 67 to 71 for how we expect the
 # results to look.
-def get_dict(line):
+
+def get_dict(line: str) -> dict:
     """Takes a log line and returns a dict with
     `timestamp`, `log_level`, `message` keys
     """
-    line = line.strip("\n")
-    timestamp = line[:17]
-    log_level, message = line[18:].split(None,1)
+    try:
+        line = line.strip("\n")
+        timestamp = line[:TIME_RANGE]
+        log_level, message = line[TIME_RANGE+1:].split(None,1)
+    except ValueError:
+        raise ValueError("Log line not in correct format.")
+    
     if log_level in {"INFO", "TRACE", "WARNING"}:
         line_dict = {}
         line_dict["timestamp"] = timestamp
         line_dict["log_level"] = log_level
         line_dict["message"] = message
         return line_dict
+    
+    raise ValueError("Invalid log level.")
 
 
 # YOU DON'T NEED TO CHANGE ANYTHING BELOW THIS LINE
