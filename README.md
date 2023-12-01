@@ -1,3 +1,5 @@
+[![Testing](https://github.com/haydenjack/Take-Home-Test-1/actions/workflows/pytest.yml/badge.svg)](https://github.com/haydenjack/Take-Home-Test-1/actions/workflows/pytest.yml)
+
 # README for test solutions
 > Written by Jack Hayden upon completion of the test
 
