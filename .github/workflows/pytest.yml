@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths:
+      - '**.py'
 
 jobs:
   set-up-cache:
@@ -33,7 +35,6 @@ jobs:
 
     - name: Test
       run: |
-        cd news_scraper
         pytest test_courts.py
         pytest test_log.py
         pytest test_time.py
