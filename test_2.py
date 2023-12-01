@@ -32,15 +32,6 @@ def generate_people_list(filepath: str) -> list[dict]:
     return people
 
 
-def get_first_valid_court(courts: list[dict], court_type: str) -> dict|None:
-    """This function returns the closest court that matches the type desired."""
-
-    for court in courts:
-        if court_type in court.get("types"):
-            return court
-    return None
-
-
 def make_api_request(url: str) -> json:
     """Sends a get request to the provided URL."""
 
@@ -54,6 +45,15 @@ def make_api_request(url: str) -> json:
     if response.status_code == UNAUTHORISED_SC:
         raise ConnectionError("Unauthorised connection")
     return response.json()
+
+
+def get_first_valid_court(courts: list[dict], court_type: str) -> dict|None:
+    """This function returns the closest court that matches the type desired."""
+
+    for court in courts:
+        if court_type in court.get("types"):
+            return court
+    return None
 
 
 def get_nearest_court(person: dict) -> dict:
