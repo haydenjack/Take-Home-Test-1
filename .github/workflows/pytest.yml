@@ -1,0 +1,38 @@
+name: Testing
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  set-up-cache:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        cd news_scraper
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        # Cache's unique key
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        # Path to a directory to save or restore the cache
+        path: ~/.cache/pip
+
+    - name: Test
+      run: |
+        cd news_scraper
+        pytest test_stories.py
