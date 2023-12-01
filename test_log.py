@@ -47,4 +47,3 @@ def test_get_dict_invalid_input_str():
     """Checks identification of invalid log levels."""
     with pytest.raises(ValueError):
         get_dict("Using log level 511")
-    
