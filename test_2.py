@@ -14,7 +14,7 @@ BAD_REQUEST_SC = 400
 UNAUTHORISED_SC = 401
 
 
-def generate_people_list(filepath: str) -> list[dict]:
+def generate_people_list(filepath: str) -> list:
     """Turns a csv file with personal info into a list of dictionaries."""
 
     with open(filepath, "r", encoding="utf-8") as f:
