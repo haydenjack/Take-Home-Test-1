@@ -7,7 +7,7 @@ TIME_RANGE = 17
 LOG_LEVELS = {"INFO", "TRACE", "WARNING"}
 
 
-def is_log_line(line: str) -> bool|None:
+def is_log_line(line: str) -> bool:
     """Takes a log line and returns True if it is a valid log line and returns nothing
     if it is not. Validates line based on length and presence of date in right format.
     """

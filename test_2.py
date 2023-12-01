@@ -47,7 +47,7 @@ def make_api_request(url: str) -> json:
     return response.json()
 
 
-def get_first_valid_court(courts: list, court_type: str) -> dict|None:
+def get_first_valid_court(courts: list, court_type: str) -> dict:
     """This function returns the closest court that matches the type desired."""
 
     for court in courts:
