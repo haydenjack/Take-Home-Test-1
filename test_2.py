@@ -47,7 +47,7 @@ def make_api_request(url: str) -> json:
     return response.json()
 
 
-def get_first_valid_court(courts: list[dict], court_type: str) -> dict|None:
+def get_first_valid_court(courts: list, court_type: str) -> dict|None:
     """This function returns the closest court that matches the type desired."""
 
     for court in courts:
@@ -72,7 +72,7 @@ def get_nearest_court(person: dict) -> dict:
     return {"error" : "No relevant court found."}
 
 
-def generate_report(people: list[dict]) -> list[dict]:
+def generate_report(people: list) -> list:
     """Creates a dictionary of relevant court information for each person."""
 
     report = []
